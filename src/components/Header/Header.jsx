@@ -37,7 +37,7 @@ const Header = ({ isLogo, isFixed, className, ...attrs }) => {
     isFixed,
   })
   const [products] = React.useContext(ProductsContext)
-  
+
   return (
     <header className={classes} {...attrs}>
       <Container>
@@ -47,15 +47,19 @@ const Header = ({ isLogo, isFixed, className, ...attrs }) => {
             <span>{app.name}</span>
           </div>
           <div className='HeaderList'>
-          {menuLinks.map((item) => (
-          <li key={item.alias}>
-            <NavLink to={item.alias}>
-              <div className='ui-button isLink'>
-                {item.title}
-                {item.alias === '/checkout' && <div className='ui-badge'>{products.length}</div>}
-              </div>
-            </NavLink>
-          </li>))}
+            {menuLinks.map((item) => (
+              <li key={item.alias}>
+                <NavLink to={item.alias}>
+                  <div className='ui-button isLink'>
+                    {item.title}
+                    {item.alias === '/checkout'
+                      ? products.length < 10
+                        ? <div className='ui-badge'>{products.length}</div>
+                        : <div className='ui-badge'>9+</div>
+                      : <></>}
+                  </div>
+                </NavLink>
+              </li>))}
 
           </div>
         </div>
